@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import Navpanel from './components/Navpanel';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import Main from './pages/Main';
+import Testimonials from './pages/Testimonials';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
+
+  const location = useLocation()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navpanel />
+      <AnimatePresence mode='wait'>
+          <Routes location={location} key={location.pathname}>
+            <Route path='/dealer-200' element={<Main />} />
+            <Route path='/testimonials' element={<Testimonials />} />
+            <Route path='/contact' element={<Testimonials />} />
+            <Route path='/about' element={<Testimonials />} />
+            <Route path='*' element={<Navigate to={'/dealer-200'} replace/>} />
+          </Routes>
+      </AnimatePresence>
     </div>
   );
 }
